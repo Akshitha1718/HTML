@@ -1,0 +1,51 @@
+
+<html>
+<head>
+    <title>Task Deletion Confirmation & Feedback</title>
+</head>
+<body bgcolor="lightyellow">
+
+<center>
+    <h1>Task Deletion Confirmation & Feedback</h1>
+
+    <button onclick="deleteTask()">Delete Task</button>
+
+    <p id="result"></p>
+</center>
+
+<script>
+function deleteTask()
+{
+    // Alert Box
+    alert("You are about to delete a task.");
+
+    // Confirm Box
+    var choice = confirm("Are you sure you want to delete this task?");
+
+    if(choice == true)
+    {
+        // Prompt Box
+        var reason = prompt("Please enter the reason for deletion:");
+
+        if(reason != "" && reason != null)
+        {
+            document.getElementById("result").innerHTML =
+            "Task deleted successfully.<br>Reason: " + reason;
+        }
+        else
+        {
+            document.getElementById("result").innerHTML =
+            "Task deleted without providing a reason.";
+        }
+    }
+    else
+    {
+        alert("Task deletion cancelled.");
+        document.getElementById("result").innerHTML =
+        "No task was deleted.";
+    }
+}
+</script>
+
+</body>
+</html>
