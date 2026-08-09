@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Menu Website</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================
+           1. CSS VARIABLES & RESET
+           ========================================== */
+        :root {
+            --primary-color: #8b0000;
+            --primary-hover: #a00000;
+            --accent-color: #d4af37;
+            --bg-dark: #121212;
+            --bg-card: #1e1e1e;
+            --text-light: #f5f5f5;
+            --text-muted: #aaaaaa;
+            --border-color: #333333;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* ==========================================
+           2. TYPOGRAPHY & TEXT FORMATTING
+           ========================================== */
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            color: var(--accent-color);
+            margin-bottom: 0.8rem;
+        }
+
+        h1 { font-size: 2.8rem; }
+        h2 { font-size: 2.2rem; text-align: center; }
+        h3 { font-size: 1.4rem; }
+
+        p { margin-bottom: 1rem; color: var(--text-light); }
+        em { color: var(--accent-color); font-style: italic; }
+        strong { color: #ffffff; }
+        mark { background-color: var(--accent-color); color: #000; padding: 2px 6px; border-radius: 4px; }
+
+        /* ==========================================
+           3. NAVIGATION MENU & HEADER
+           ========================================== */
+        header {
+            background-color: rgba(18, 18, 18, 0.95);
+            border-bottom: 2px solid var(--accent-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0.8rem;
+            border-radius: 4px;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+            background-color: rgba(212, 175, 55, 0.1);
+        }
+
+        /* ==========================================
+           4. LAYOUT SECTIONS (FLEXBOX & GRID)
+           ========================================== */
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&q=80') center/cover no-repeat;
+            border-radius: 12px;
+            margin-top: 1rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            border-color: var(--accent-color);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        /* ==========================================
+           5. LISTS (ORDERED & UNORDERED)
+           ========================================== */
+        .tags-list {
+            list-style: none;
+            display: flex;
+            gap: 0.5rem;
+            margin-top: auto;
+            padding-top: 1rem;
+        }
+
+        .tags-list li {
+            font-size: 0.75rem;
+            background-color: #2a2a2a;
+            color: var(--accent-color);
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .process-list {
+            max-width: 800px;
+            margin: 2rem auto 0;
+            padding-left: 2rem;
+        }
+
+        .process-list li {
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+        }
+
+        /* ==========================================
+           6. TABLES
+           ========================================== */
+        .table-wrapper {
+            overflow-x: auto;
+            margin-top: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            font-family: var(--font-heading);
+            letter-spacing: 0.5px;
+        }
+
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        /* ==========================================
+           7. MULTIMEDIA (AUDIO & VIDEO)
+           ========================================== */
+        .media-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .media-box {
+            background-color: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        video, audio {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 6px;
+            margin-top: 1rem;
+        }
+
+        /* ==========================================
+           8. FORMS
+           ========================================== */
+        .form-container {
+            max-width: 700px;
+            margin: 2rem auto 0;
+            background-color: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: #121212;
+            color: var(--text-light);
+            font-family: var(--font-body);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 0.8rem 1.8rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* ==========================================
+           9. FOOTER
+           ========================================== */
+        footer {
+            background-color: #0a0a0a;
+            border-top: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        /* ==========================================
+           10. RESPONSIVE DESIGN (MEDIA QUERIES)
+           ========================================== */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+
+            section {
+                padding: 2.5rem 1rem;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">Bella Italia</a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#menu" class="nav-link">Menu</a></li>
+                    <li><a href="#nutrition" class="nav-link">Pricing & Specs</a></li>
+                    <li><a href="#showcase" class="nav-link">Showcase</a></li>
+                    <li><a href="#reservation" class="nav-link">Reserve</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="about">
+        <h1>Welcome to Bella Italia</h1>
+        <p>Experience <em>authentic Italian culinary arts</em> handcrafted with locally sourced organic ingredients.</p>
+        <p><mark>Special Offer:</mark> Enjoy <strong>20% off</strong> all main courses every Tuesday evening!</p>
+        <a href="#reservation" class="btn" style="max-width: 200px; margin-top: 1rem;">Book a Table</a>
+    </section>
+
+    <!-- Menu Cards Section (Grid & Unordered Lists) -->
+    <section id="menu">
+        <h2>Our Featured Menu</h2>
+        <p style="text-align: center; color: var(--text-muted);">Explore our most popular handmade dishes</p>
+        
+        <div class="grid-container">
+            <!-- Card 1 -->
+            <article class="card">
+                <img src="https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?w=400&q=80" alt="Bruschetta Classica">
+                <h3>Bruschetta Classica</h3>
+                <p>Grilled sourdough topped with diced heirloom tomatoes, fresh basil, and extra virgin olive oil.</p>
+                <p><strong>$9.50</strong></p>
+                <ul class="tags-list">
+                    <li>Vegetarian</li>
+                    <li>Starter</li>
+                </ul>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="card">
+                <img src="https://images.unsplash.com/photo-1612874742237-6526221588e3?w=400&q=80" alt="Spaghetti Carbonara">
+                <h3>Spaghetti Carbonara</h3>
+                <p>Traditional Roman pasta with crispy guanciale, egg yolks, Pecorino Romano, and cracked pepper.</p>
+                <p><strong>$18.50</strong></p>
+                <ul class="tags-list">
+                    <li>Chef Specialty</li>
+                    <li>Main Course</li>
+                </ul>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="card">
+                <img src="https://images.unsplash.com/photo-1604382355076-af4b0eb60143?w=400&q=80" alt="Pizza Margherita">
+                <h3>Pizza Margherita</h3>
+                <p>Wood-fired artisanal pizza with San Marzano tomatoes, fresh mozzarella di bufala, and basil.</p>
+                <p><strong>$16.00</strong></p>
+                <ul class="tags-list">
+                    <li>Vegetarian</li>
+                    <li>Wood-Fired</li>
+                </ul>
+            </article>
+        </div>
+    </section>
+
+    <!-- Process Section (Ordered List) -->
+    <section>
+        <h2>Our Culinary Craft</h2>
+        <ol class="process-list">
+            <li><strong>Sourcing Ingredients:</strong> We import key specialty ingredients directly from certified Italian farms weekly.</li>
+            <li><strong>Handmade Prep:</strong> All pasta dough and pizza crusts are fermented for 48 hours and rolled fresh each morning.</li>
+            <li><strong>Wood-Fired Precision:</strong> Our hearth ovens operate at 900°F to deliver a crispy, charred finish in under 90 seconds.</li>
+        </ol>
+    </section>
+
+    <!-- Pricing & Spec Section (Table) -->
+    <section id="nutrition">
+        <h2>Menu Specifications & Pricing</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Item Name</th>
+                        <th>Portion Size</th>
+                        <th>Calories</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Appetizer</td>
+                        <td>Bruschetta Classica</td>
+                        <td>2 Pieces</td>
+                        <td>320 kcal</td>
+                        <td>$9.50</td>
+                    </tr>
+                    <tr>
+                        <td>Main Course</td>
+                        <td>Spaghetti Carbonara</td>
+                        <td>350g</td>
+                        <td>680 kcal</td>
+                        <td>$18.50</td>
+                    </tr>
+                    <tr>
+                        <td>Main Course</td>
+                        <td>Wood-Fired Pizza Margherita</td>
+                        <td>12 Inches</td>
+                        <td>820 kcal</td>
+                        <td>$16.00</td>
+                    </tr>
+                    <tr>
+                        <td>Dessert</td>
+                        <td>Classic Tiramisu</td>
+                        <td>150g</td>
+                        <td>450 kcal</td>
+                        <td>$8.50</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Multimedia Section (Audio & Video) -->
+    <section id="showcase">
+        <h2>Kitchen Showcase & Ambience</h2>
+        <div class="media-flex">
+            <!-- Video -->
+            <div class="media-box">
+                <h3>Behind the Scenes</h3>
+                <p>Watch our master chefs prepare signature wood-fired dishes.</p>
+                <video controls poster="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80">
+                    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <!-- Audio -->
+            <div class="media-box">
+                <h3>Dining Room Ambience</h3>
+                <p>Listen to our relaxing Italian dining room soundtrack.</p>
+                <audio controls>
+                    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=italian-accordion-114008.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Section (Form) -->
+    <section id="reservation">
+        <h2>Table Reservation</h2>
+        <div class="form-container">
+            <form action="#" method="post">
+                <div class="form-group">
+                    <label for="fullname">Full Name:</label>
+                    <input type="text" id="fullname" class="form-control" placeholder="John Doe" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" class="form-control" placeholder="john@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="res-date">Reservation Date:</label>
+                    <input type="date" id="res-date" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="guests">Number of Guests:</label>
+                    <select id="guests" class="form-control">
+                        <option value="1">1 Person</option>
+                        <option value="2" selected>2 People</option>
+                        <option value="4">4 People</option>
+                        <option value="6">6+ People</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Dietary Restrictions:</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="diet" value="vegetarian"> Vegetarian</label>
+                        <label><input type="checkbox" name="diet" value="gluten-free"> Gluten-Free</label>
+                        <label><input type="checkbox" name="diet" value="nut-allergy"> Nut Allergy</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Special Requests:</label>
+                    <textarea id="notes" class="form-control" rows="4" placeholder="Anniversary seating, high chair, etc."></textarea>
+                </div>
+
+                <button type="submit" class="btn">Confirm Reservation</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2026 Bella Italia Bistro. All Rights Reserved.</p>
+        <p>Visit our partner location or read our <a href="#">Privacy Policy</a>.</p>
+    </footer>
+
+</body>
+</html>
