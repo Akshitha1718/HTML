@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bella Italia - Restaurant & Bistro</title>
+    <style>
+        :root {
+            --primary-color: #8b0000;
+            --accent-color: #d4af37;
+            --bg-dark: #121212;
+            --bg-card: #1e1e1e;
+            --text-light: #f5f5f5;
+            --text-muted: #aaaaaa;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Top Header Frame */
+        header {
+            background-color: #0a0a0a;
+            border-bottom: 2px solid var(--accent-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 45px;
+            height: 45px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+        }
+
+        .audio-player {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid #333;
+        }
+
+        .audio-player span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Main Container with Frames */
+        .layout-container {
+            display: flex;
+            flex: 1;
+            height: calc(100vh - 80px);
+        }
+
+        /* Left Sidebar Frame */
+        nav {
+            width: 260px;
+            background-color: #161616;
+            border-right: 1px solid #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .nav-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--accent-color);
+            letter-spacing: 1.5px;
+            margin-bottom: 5px;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-list li a {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 6px;
+            display: block;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.02);
+            font-size: 0.95rem;
+        }
+
+        .nav-list li a:hover, .nav-list li a.active {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding-left: 18px;
+        }
+
+        .info-box {
+            margin-top: auto;
+            background: #222;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        /* Main Display Frame */
+        main {
+            flex: 1;
+            background-color: var(--bg-dark);
+            overflow: hidden;
+            position: relative;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Frame -->
+    <header>
+        <div class="logo-container">
+            <div class="logo">🍕</div>
+            <div>
+                <h1>Bella Italia Bistro</h1>
+                <small style="color: var(--text-muted);">Authentic Italian Culinary Experience</small>
+            </div>
+        </div>
+
+        <!-- Audio Component -->
+        <div class="audio-player">
+            <span>🎵 Ambient Music</span>
+            <audio id="bg-audio" loop controls style="height: 30px; width: 180px;">
+                <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=italian-accordion-114008.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </header>
+
+    <!-- Content Layout with Frames -->
+    <div class="layout-container">
+        <!-- Navigation Frame -->
+        <nav>
+            <div>
+                <p class="nav-title">Menu Categories</p>
+                <ul class="nav-list">
+                    <li><a href="#starters" class="nav-link active" onclick="loadContent('starters')">🥖 Starters & Appetizers</a></li>
+                    <li><a href="#mains" class="nav-link" onclick="loadContent('mains')">🍝 Main Courses</a></li>
+                    <li><a href="#desserts" class="nav-link" onclick="loadContent('desserts')">🍨 Desserts & Drinks</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <p class="nav-title">Interactive & Media</p>
+                <ul class="nav-list">
+                    <li><a href="#order" class="nav-link" onclick="loadContent('order')">🛒 Online Order Form</a></li>
+                    <li><a href="#media" class="nav-link" onclick="loadContent('media')">🎥 Kitchen Showcase</a></li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <strong>🕒 Hours:</strong><br>
+                Mon-Sun: 11:30 AM - 10:30 PM<br>
+                <strong>📞 Contact:</strong> (555) 019-2834
+            </div>
+        </nav>
+
+        <!-- Main Display Frame (iframe integration) -->
+        <main>
+            <iframe id="main-frame" name="main-frame" srcdoc="
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <style>
+                        body { font-family: sans-serif; padding: 25px; color: #f5f5f5; background: #121212; }
+                        h2 { color: #d4af37; margin-bottom: 15px; border-bottom: 2px solid #333; padding-bottom: 8px; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: #1e1e1e; border-radius: 8px; overflow: hidden; }
+                        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #333; }
+                        th { background: #8b0000; color: white; }
+                        tr:hover { background: #2a2a2a; }
+                        .item-img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; }
+                        .badge { background: #d4af37; color: #000; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
+                    </style>
+                </head>
+                <body>
+                    <h2>🥖 Starters & Appetizers</h2>
+                    <p>Kickstart your meal with our traditional Italian antipasti prepared fresh daily.</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><img src='https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?w=150&q=80' class='item-img' alt='Bruschetta'></td>
+                                <td>Bruschetta Classica <span class='badge'>Veg</span></td>
+                                <td>Grilled sourdough topped with diced tomatoes, garlic, fresh basil, and extra virgin olive oil.</td>
+                                <td>$9.50</td>
+                            </tr>
+                            <tr>
+                                <td><img src='https://images.unsplash.com/photo-1541529086526-db283c563270?w=150&q=80' class='item-img' alt='Caprese'></td>
+                                <td>Caprese Salad <span class='badge'>Veg</span></td>
+                                <td>Fresh mozzarella, ripe tomatoes, basil leaves, drizzled with aged balsamic glaze.</td>
+                                <td>$12.00</td>
+                            </tr>
+                            <tr>
+                                <td><img src='https://images.unsplash.com/photo-1541014741259-de529411b96a?w=150&q=80' class='item-img' alt='Calamari'></td>
+                                <td>Calamari Fritti</td>
+                                <td>Crispy fried squid rings served with spicy marinara sauce and lemon wedges.</td>
+                                <td>$14.50</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </body>
+                </html>
+            "></iframe>
+        </main>
+    </div>
+
+    <!-- JavaScript Implementation -->
+    <script>
+        // Content definitions for frame dynamically switching
+        const pages = {
+            starters: `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <style>
+                        body { font-family: sans-serif; padding: 25px; color: #f5f5f5; background: #121212; }
+                        h2 { color: #d4af37; margin-bottom: 15px; border-bottom: 2px solid #333; padding-bottom: 8px; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: #1e1e1e; border-radius: 8px; overflow: hidden; }
+                        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #333; }
+                        th { background: #8b0000; color: white; }
+                        tr:hover { background: #2a2a2a; }
+                        .item-img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; }
+                        .badge { background: #d4af37; color: #000; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
+                    </style>
+                </head>
+                <body>
+                    <h2>🥖 Starters & Appetizers</h2>
+                    <p>Kickstart your meal with our traditional Italian antipasti prepared fresh daily.</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><img src='https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?w=150&q=80' class='item-img' alt='Bruschetta'></td>
+                                <td>Bruschetta Classica <span class='badge'>Veg</span></td>
+                                <td>Grilled sourdough topped with diced tomatoes, garlic, fresh basil, and extra virgin olive oil.</td>
+                                <td>$9.50</td>
+                            </tr>
+                            <tr>
+                                <td><img src='https://images.unsplash.com/photo-1541529086526-db283c563270?w=150&q=80' class='item-img' alt='Caprese'></td>
+                                <td>Caprese Salad <span class='badge'>Veg</span></td>
+                                <td>Fresh mozzarella, ripe tomatoes, basil leaves, drizzled with aged balsamic glaze.</td>
+                                <td>$12.00</td>
+                            </tr>
+                            <tr>
+                                <td><img src='https://images.unsplash.com/photo-1541014741259-de529411b96a?w=150&q=80' class='item-img' alt='Calamari'></td>
+                                <td>Calamari Fritti</td>
+                                <td>Crispy fried squid rings served with spicy marinara sauce and lemon wedges.</td>
+                                <td>$14.50</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </body>
+                </html>
+            `,
+            mains: `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <style>
+                        body { font-family: sans-serif; padding: 25px; color: #f5f5f5; background: #121212; }
+                        h2 { color: #d4af37; margin-bottom: 15px; border-bottom: 2px solid #333; padding-bottom: 8px; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: #1e1e1e; border-radius: 8px; overflow: hidden; }
+                        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #333; }
+                        th { background: #8b0000; color: white; }
+                        tr:hover { background: #2a2a2a; }
+                        .item-img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; }
+                        .badge { background: #d4af37; color: #000; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
+                    </style>
+                </head>
+                <body>
+                    <h2>🍝 Main Courses</h2>
+                    <p>Handcrafted pasta, wood-fired pizzas, and classic Italian specialties.</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><img src='https://images.unsplash.com/photo-1612874742237-6526221588e3?w=150&q=80' class='item-img' alt='Spaghetti Carbonara'></td>
+                                <td>Classic Spaghetti Carbonara</td>
+                                <td>Pancetta, egg yolk, Pecorino Romano cheese, and freshly cracked black pepper.</td>
+                                <td>$18.50</td>
+                            </tr>
+                            <tr>
+                                <td><img src='https://images.unsplash.com/photo-1604382355076-af4b0eb60143?w=150&q=80' class='item-img' alt='Margherita Pizza'></td>
+                                <td>Wood-Fired Pizza Margherita <span class='badge'>Veg</span></td>
+                                <td>San Marzano tomato sauce, fresh mozzarella di bufala, and fresh basil leaves.</td>
+                                <td>$16.00</td>
+                            </tr>
+                            <tr>
+                                <td><img src='https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=150&q=80' class='item-img' alt='Lasagna'></td>
+                                <td>Traditional Beef Lasagna</td>
+                                <td>Layers of pasta, slow-cooked Bolognese sauce, béchamel, and melted parmesan.</td>
+                                <td>$20.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </body>
+                </html>
+            `,
+            desserts: `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <style>
+                        body { font-family: sans-serif; padding: 25px; color: #f5f5f5; background: #121212; }
+                        h2 { color: #d4af37; margin-bottom: 15px; border-bottom: 2px solid #333; padding-bottom: 8px; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: #1e1e1e; border-radius: 8px; overflow: hidden; }
+                        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #333; }
+                        th { background: #8b0000; color: white; }
+                        tr:hover { background: #2a2a2a; }
+                        .item-img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; }
+                    </style>
+                </head>
+                <body>
+                    <h2>🍨 Desserts & Beverages</h2>
+                    <p>Sweet finishes and refreshing classic drinks.</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><img src='https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=150&q=80' class='item-img' alt='Tiramisu'></td>
+                                <td>Classic Tiramisu</td>
+                                <td>Espresso-soaked ladyfingers with mascarpone cream and cocoa powder.</td>
+                                <td>$8.50</td>
+                            </tr>
+                            <tr>
+                                <td><img src='https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=150&q=80' class='item-img' alt='Gelato'></td>
+                                <td>Artisanal Gelato Trio</td>
+                                <td>Choice of three scoops: Pistachio, Dark Chocolate, and Vanilla Bean.</td>
+                                <td>$7.00</td>
+                            </tr>
+                            <tr>
+                                <td><img src='https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=150&q=80' class='item-img' alt='Espresso'></td>
+                                <td>Italian Espresso</td>
+                                <td>Rich, concentrated single or double shot of authentic roasted coffee.</td>
+                                <td>$3.50</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </body>
+                </html>
+            `,
+            order: `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <style>
+                        body { font-family: sans-serif; padding: 25px; color: #f5f5f5; background: #121212; }
+                        h2 { color: #d4af37; margin-bottom: 15px; border-bottom: 2px solid #333; padding-bottom: 8px; }
+                        .form-group { margin-bottom: 15px; }
+                        label { display: block; margin-bottom: 5px; font-weight: bold; }
+                        input, select, textarea { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #444; background: #1e1e1e; color: #fff; box-sizing: border-box; }
+                        .checkbox-group { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+                        .checkbox-group input { width: auto; }
+                        button { background: #8b0000; color: white; border: none; padding: 12px 20px; font-size: 1rem; border-radius: 6px; cursor: pointer; }
+                        button:hover { background: #a00000; }
+                        .total-card { background: #1e1e1e; border: 1px solid #d4af37; padding: 15px; border-radius: 6px; margin-top: 15px; }
+                    </style>
+                </head>
+                <body>
+                    <h2>🛒 Online Order Form</h2>
+                    <form id="orderForm" onsubmit="event.preventDefault(); alert('Order placed successfully!');">
+                        <div class="form-group">
+                            <label for="custName">Customer Name:</label>
+                            <input type="text" id="custName" required placeholder="John Doe">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number:</label>
+                            <input type="tel" id="phone" required placeholder="(555) 000-0000">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Select Items:</label>
+                            <div class="checkbox-group">
+                                <input type="checkbox" class="item-check" data-price="9.50" id="item1" onchange="calcTotal()">
+                                <label for="item1">Bruschetta Classica ($9.50)</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" class="item-check" data-price="18.50" id="item2" onchange="calcTotal()">
+                                <label for="item2">Spaghetti Carbonara ($18.50)</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" class="item-check" data-price="16.00" id="item3" onchange="calcTotal()">
+                                <label for="item3">Pizza Margherita ($16.00)</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" class="item-check" data-price="8.50" id="item4" onchange="calcTotal()">
+                                <label for="item4">Classic Tiramisu ($8.50)</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="notes">Special Requests / Dietary Notes:</label>
+                            <textarea id="notes" rows="3" placeholder="Extra cheese, gluten-free crust, etc."></textarea>
+                        </div>
+
+                        <div class="total-card">
+                            <h3>Total Amount: <span id="total-display" style="color: #d4af37;">$0.00</span></h3>
+                        </div>
+                        <br>
+                        <button type="submit">Confirm & Place Order</button>
+                    </form>
+
+                    <script>
+                        function calcTotal() {
+                            let total = 0;
+                            const checkboxes = document.querySelectorAll('.item-check');
+                            checkboxes.forEach(cb => {
+                                if(cb.checked) {
+                                    total += parseFloat(cb.getAttribute('data-price'));
+                                }
+                            });
+                            document.getElementById('total-display').innerText = '$' + total.toFixed(2);
+                        }
+                    <\/script>
+                </body>
+                </html>
+            `,
+            media: `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <style>
+                        body { font-family: sans-serif; padding: 25px; color: #f5f5f5; background: #121212; }
+                        h2 { color: #d4af37; margin-bottom: 15px; border-bottom: 2px solid #333; padding-bottom: 8px; }
+                        .video-container { margin-top: 15px; background: #1e1e1e; padding: 15px; border-radius: 8px; }
+                        video { width: 100%; max-width: 640px; border-radius: 8px; border: 1px solid #333; }
+                    </style>
+                </head>
+                <body>
+                    <h2>🎥 Kitchen & Culinary Showcase</h2>
+                    <p>Take a peak inside our kitchen and watch how our master chefs prepare artisan Italian dishes.</p>
+
+                    <div class="video-container">
+                        <h3>Behind the Scenes: Pizza Making</h3>
+                        <br>
+                        <!-- Video Component -->
+                        <video controls poster="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80">
+                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </body>
+                </html>
+            `
+        };
+
+        // JavaScript function to manipulate dynamic frame content
+        function loadContent(pageKey) {
+            const frame = document.getElementById('main-frame');
+            if (pages[pageKey]) {
+                frame.srcdoc = pages[pageKey];
+            }
+
+            // Update active state in sidebar
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
